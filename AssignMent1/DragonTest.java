@@ -19,6 +19,7 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
 import java.util.Vector;
 import com.jme3.app.SimpleApplication;
+import com.jme3.font.BitmapText;
 import com.jme3.input.ChaseCamera;
 import com.jme3.material.Material;
 import com.jme3.math.Vector3f;
@@ -96,7 +97,14 @@ public class DragonTest extends SimpleApplication {
     rootNode.attachChild(trice_2);
     rootNode.attachChild(trice_3);
     rootNode.attachChild(trice_4);
-    //Put the triceratops on the right place
+    //display a line of text with the deafult font
+    guiNode.detachAllChildren();
+    guiFont = assetManager.loadFont("Interface/Fonts/Default.fnt");
+    BitmapText helloText = new BitmapText(guiFont, false);
+    helloText.setSize(guiFont.getCharSet().getRenderedSize());
+    helloText.setText("To hold and change the camera view hold the left mouse");
+    helloText.setLocalTranslation(180, helloText.getLineHeight(), 0);
+    guiNode.attachChild(helloText);
     }
     //Define the key mapping for the grog
     private void initKeys(){
@@ -110,24 +118,16 @@ public class DragonTest extends SimpleApplication {
     public void onAnalog(String name, float value, float tpf) {
       if (isRunning) {
         if (name.equals("Right")) {
-//      Vector3f v = grog.getLocalTranslation();
-//      grog.setLocalTranslation(v.x + value*speed*10, v.y, v.z);
         grog.move(5*tpf,0,0);  
         }
         if (name.equals("Left")) {
-//      Vector3f   v = grog.getLocalTranslation();
-//      grog.setLocalTranslation(v.x - value*speed*10, v.y, v.z);
         grog.move(-5 * tpf, 0, 0);
         }
         if (name.equals("Front")) {
-//      Vector3f   v = grog.getLocalTranslation();
-//      grog.setLocalTranslation(v.x , v.y, v.z+ value*speed*10);
         grog.move(0, 0, -5 * tpf);
         }
         if (name.equals("Back")) {
-//      Vector3f  v = grog.getLocalTranslation();
-//      grog.setLocalTranslation(v.x , v.y, v.z- value*speed*10);
-            grog.move(0, 0, 5 * tpf);
+        grog.move(0, 0, 5 * tpf);
         }
       } 
     }
